@@ -31,4 +31,11 @@ class UnitController extends Controller
             'message' => 'success'
         ]);
 }
+public function getAllUnits()
+    {
+        return response()->json([
+            'data' => Unit::all()->makeHidden(['created_at', 'updated_at']),
+            'message' => 'success'
+        ]);
+    }
 }

@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('/units', [UnitController::class, 'addUnit']);
 Route::post('/items', [ItemController::class, 'addItem']);
+Route::get('/items', [ItemController::class, 'getAllItems']);
+Route::get('/Units', [UnitController::class, 'getAllUnits']);
