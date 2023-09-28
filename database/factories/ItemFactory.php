@@ -17,7 +17,9 @@ class ItemFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'description' =>$this->faker->text(300),
+            'volume' => $this->faker->numberBetween(100,100000),
         ];
     }
 }
