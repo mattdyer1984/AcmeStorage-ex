@@ -75,4 +75,31 @@ class UnitTest extends TestCase
         });
 
     }
+
+    public function test_getAllUnits_success()
+    {   
+        Unit::factory()->create();
+        $response = $this->getJson('/api/units');
+
+        $response->assertStatus(200)
+        ->assertJson(function (AssertableJson $json) {
+            $json->hasAll(['message', 'data'])
+            ->has('data',1, function (AssertableJson $json) {
+                $json->hasAll([
+                    'id',
+                    'name',
+                    'description',
+                    'volume',
+                    'available'
+                ])
+                ->whereAllType([
+                    'id' => 'integer',
+                    'name' => 'string',
+                    'description' => 'string',
+                    'volume' => 'integer',
+                    'available' => 'integer'
+                ]);
+            });
+        });
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UnitController;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/units', [UnitController::class, 'addUnit']);
 Route::post('/items', [ItemController::class, 'addItem']);
 Route::get('/items', [ItemController::class, 'getAllItems']);
-Route::get('/Units', [UnitController::class, 'getAllUnits']);
+Route::get('/units', [UnitController::class, 'getAllUnits']);
+Route::get('/units', [UnitController::class, 'getAvailableUnits']);

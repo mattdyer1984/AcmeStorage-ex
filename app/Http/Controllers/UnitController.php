@@ -38,4 +38,15 @@ public function getAllUnits()
             'message' => 'success'
         ]);
     }
+
+    public function getAvailableUnits(Request $request)
+    {
+        $available = $request->query('available');
+        $units = Unit::where('available', $available)->get()->makeHidden(['created_at', 'updated_at']);
+    
+        return response()->json([
+            'data' => $units,
+            'message' => 'success'
+        ]);
+    }
 }
