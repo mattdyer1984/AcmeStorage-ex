@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Unit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,5 +23,7 @@ class UnitFactory extends Factory
             'volume' => $this->faker->numberBetween(100,100000),
             'available' => $this->faker->boolean()
         ];
+
+    
     }
 }

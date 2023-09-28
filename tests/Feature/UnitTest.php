@@ -3,16 +3,17 @@
 namespace Tests\Feature;
 
 use App\Models\Unit;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class UnitTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_add_invalid(): void
+   use DatabaseMigrations;
+
+    public function test_addUnit_invalid(): void
     {
         $response = $this->postJson('/api/units', []);
 
@@ -20,7 +21,7 @@ class UnitTest extends TestCase
         ->assertInvalid(['name', 'description', 'volume', 'available']);
     }
 
-    public function test_add_invalidDate():void
+    public function test_addUnit_invalidData():void
     {
         $response = $this->postJson('/api/units', [
             'name' => 1,2,3,4,
@@ -34,9 +35,9 @@ class UnitTest extends TestCase
     
     }
 
-    public function test_add_valid():void
+    public function test_addUnit_valid():void
     {   
-        
+        $this->withoutExceptionHandling();
         $response = $this->postJson('/api/units', [
             'name' => 'this name',
             'description' => 'this is a description',
@@ -51,5 +52,27 @@ class UnitTest extends TestCase
             'volume' => 30540,
             'available' => true
         ]);
+    }
+
+    public function test_addUnit_validFormat()
+    {
+        $response = $this->postJson('/api/units', [
+            'name' => 'this name',
+            'description' => 'this is a description',
+            'volume' => 30540,
+            'available' => true
+        ]);
+        $response->assertOk()
+        ->assertJson(function (AssertableJson $json) {
+            $json->hasAll(['data', 'message'])
+            ->has('data', function (AssertableJson $json) {
+                $json->hasAll(['insertedId'])
+                ->whereAlltype([
+                    'insertedId' => 'integer'
+                ])
+                ->where('insertedId', 1);
+            });
+        });
+
     }
 }

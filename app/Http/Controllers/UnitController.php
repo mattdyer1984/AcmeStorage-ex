@@ -23,5 +23,12 @@ class UnitController extends Controller
         $unit->available = $request->available;
 
         $unit->save();
+
+        return response()->json([
+            'data' => [
+                'insertedId' => $unit->id
+            ],
+            'message' => 'success'
+        ]);
 }
 }
