@@ -1,0 +1,39 @@
+# Ignore vendor directory (contains dependencies)
+/vendor/
+
+# Ignore .env file (contains sensitive configuration)
+.env
+
+# Ignore storage directory (contains logs, cached files, and other generated data)
+/storage/
+
+# Ignore node_modules directory (if you are using npm or yarn for frontend assets)
+/node_modules/
+
+# Ignore composer lock file
+composer.lock
+
+# Ignore Homestead.yaml file (if you are using Laravel Homestead)
+Homestead.yaml
+
+# Ignore SQLite database files (if you use SQLite)
+/database/*.sqlite
+
+# Ignore user-specific config files (specific to certain IDEs/editors)
+.idea/
+.vscode/
+
+# Ignore PHPUnit cache and result files
+.phpunit.result.cache
+.phpunit.cache
+
+# Ignore any other generated or temporary files and directories
+/.phpstorm.meta.php
+/.phpstorm.meta.php.tmp
+/.phpstorm.meta.php.tmp.*
+/.phpstorm.meta.php.ws
+Thumbs.db
+.DS_Store
+
+# Ignore log files
+/logs/*.log
