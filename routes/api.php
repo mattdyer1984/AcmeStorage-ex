@@ -23,5 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/units', [UnitController::class, 'addUnit']);
 Route::post('/items', [ItemController::class, 'addItem']);
 Route::get('/items', [ItemController::class, 'getAllItems']);
-Route::get('/units', [UnitController::class, 'getAllUnits']);
-Route::get('/units', [UnitController::class, 'getAvailableUnits']);
+Route::get('/units', [UnitController::class, 'getUnits']);
+Route::put('/units/{id}', [UnitController::class, 'updateUnit']);
+Route::put('/items/{id}', [ItemController::class, 'updateItem']);

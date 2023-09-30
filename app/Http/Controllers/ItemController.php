@@ -38,4 +38,46 @@ class ItemController extends Controller
             'message' => 'success'
         ]);
     }
+
+    public function updateItem(int $id, Request $request) 
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:items,id',
+            'name' => 'required|string|min:1|max:100',
+            'description' => 'required|string|min:4|max:500', 
+            'volume' => 'required|integer|min:1',
+            
+        ]);
+
+        $name = $request->name;
+        $description = $request->description;
+        $volume = $request->volume;
+        
+
+        $item_to_update = Item::find($id);
+
+        if($name) {
+            $item_to_update->name = $name;
+        }
+
+        if($description) {
+            $item_to_update->description = $description;
+        }
+
+        if($volume) {
+            $item_to_update->volume = $volume;
+        }
+
+        if($item_to_update->save()) {
+            return response()->json([
+                'data' => [
+                    'updatedId' => $id
+                ],
+                'message' => 'success'
+            ]);
+        } return response()->json([
+            'data' => [],
+            'message' => 'There was a problem'
+        ]);
+    }
 }

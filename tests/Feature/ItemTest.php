@@ -94,4 +94,46 @@ class ItemTest extends TestCase
         });
     }
 
+    public function test_updateItem_invalid() 
+    {   
+        
+        $response = $this->putJson("/api/items/1", []);
+        $response->assertStatus(422)
+        ->assertInvalid(['name', 'description', 'volume',]);
+    }
+
+    public function test_updateItem_invalidData() 
+    {
+        $response = $this->putJson('/api/items/1', [
+            'name' => ['horse'],
+            'description' => '',
+            'volume' => 'string',
+
+        ]);
+        $response->assertStatus(422)
+        ->assertInvalid(['name', 'description', 'volume']);
+    }
+
+    public function test_UpdateItem_validInDb()
+    {
+        $item = Item::factory()->create();
+
+        $response = $this->putJson("api/items/{$item->id}", [
+            'id' => $item->id,
+            'name' => 'newName',
+            'description' => 'newDescription',
+            'volume' => 500,
+        ]);
+
+        $response->assertOk();
+
+        $this->assertDatabaseHas('items', [
+            'id' => $item->id,
+            'name' =>'newName',
+            'description' => 'newDescription',
+            'volume' => 500,
+        ]);
+
+    }
+
 }
